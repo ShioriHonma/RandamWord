@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>単語ランダム出題</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      max-width: 500px;
+      margin: auto;
+    }
+    label, button, input {
+      display: block;
+      margin: 1em 0;
+      width: 100%;
+    }
+    .output {
+      border: 1px solid #ccc;
+      padding: 1em;
+      margin-top: 1em;
+      border-radius: 8px;
+    }
+    .output div {
+      margin-bottom: 0.5em;
+    }
+  </style>
+</head>
+<body>
+  <h1>単語ランダム出題</h1>
+
+  <input type="file" id="csvFile" accept=".csv" />
+  <button id="loadButton">CSV読み込み</button>
+  <button id="randomButton" disabled>ランダム出題</button>
+
+  <div class="output" id="wordDisplay" style="display: none;">
+    <div id="number"></div>
+    <div id="word"></div>
+    <div id="category"></div>
+    <div id="meaning"></div>
+  </div>
+
+  <script>
+    let wordList = [];
+
+    document.getElementById("loadButton").addEventListener("click", () => {
+      const fileInput = document.getElementById("csvFile");
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("CSVファイルを選択してください。");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        const lines = text.split(/\r?\n/);
+
+        wordList = lines
+          .map(line => line.split(","))
+          .filter(arr => arr.length >= 4);
+
+        if (wordList.length === 0) {
+          alert("有効なデータが見つかりませんでした。");
+        } else {
+          document.getElementById("randomButton").disabled = false;
+          alert("CSVの読み込みが完了しました。");
+        }
+      };
+
+      // Shift_JISで読み込み
+      reader.readAsText(file, "Shift_JIS");
+    });
+
+    document.getElementById("randomButton").addEventListener("click", () => {
+      if (wordList.length === 0) return;
+
+      const rand = wordList[Math.floor(Math.random() * wordList.length)];
+
+      document.getElementById("number").textContent = "No.: " + rand[0];
+      document.getElementById("word").textContent = "単語: " + rand[1];
+      document.getElementById("category").textContent = "分類: " + rand[2];
+      document.getElementById("meaning").textContent = "意味: " + rand[3];
+      document.getElementById("wordDisplay").style.display = "block";
+    });
+  </script>
+</body>
+</html>
