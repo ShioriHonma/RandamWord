@@ -2,7 +2,7 @@
 
 ★通勤や業務終了間際、最後の悪あがきにどうぞ！
 
-① 同梱したWordTemplate.xlsmに覚えたいことを打ち込んでcsv出力する 
+① WordTemplate.xlsmに覚えたいことを打ち込んでcsv出力する 
 
 ② https://shiorihonma.github.io/RandamWord/ を開いて.csvを読み込ませる
 
