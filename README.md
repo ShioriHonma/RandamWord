@@ -4,7 +4,7 @@
 
 ① 同梱したWordTemplate.xlsmに覚えたいことを打ち込んでcsv出力する 
 
-② RandomWordを開いて.csvを読み込ませる
+② https://shiorihonma.github.io/RandamWord/ を開いて.csvを読み込ませる
 
 ③ あとはボタンを押す度にランダムに表示されます
 
